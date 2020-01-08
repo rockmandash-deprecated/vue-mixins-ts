@@ -1,4 +1,3 @@
-// Delete me
-export const Thing = () => {
-  return 123;
-};
+export { mixinMousePositionAtPage } from './mixins/mixinMousePositionAtPage';
+export { mixinWindowSize } from './mixins/mixinWindowSize';
+export { mixins } from './utils';
