@@ -11,7 +11,8 @@
     "build": "tsdx build",
     "test": "echo 'TODO'",
     "lint": "echo 'TODO'",
-    "prepare": "tsdx build"
+    "prepare": "tsdx build",
+    "release": "np --yolo"
   },
   "peerDependencies": {
     "vue": "2.6.x"
@@ -27,6 +28,7 @@
   "module": "dist/vue-mixins-ts.esm.js",
   "devDependencies": {
     "@types/jest": "^24.0.25",
+    "np": "^5.2.1",
     "tsdx": "^0.12.1",
     "tslib": "^1.10.0",
     "typescript": "^3.7.4",
