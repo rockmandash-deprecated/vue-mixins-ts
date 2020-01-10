@@ -18,7 +18,10 @@ import { mixinWindowSize } from '@/../../src/mixins/sensors/mixinWindowSize';
 
 // const test = mixins(mixinMousePositionAtPage);
 
-const MyComponent = mixins(mixinMousePositionAtPage, mixinWindowSize).extend({
+const MyComponent = mixins(
+  mixinMousePositionAtPage(),
+  mixinWindowSize()
+).extend({
   mounted() {
     console.log(this.mixinWindowSize);
     // console.log(this.mixinMousePositionAtPage);
