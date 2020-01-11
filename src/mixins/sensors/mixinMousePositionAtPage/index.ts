@@ -1,22 +1,10 @@
 import Vue from 'vue';
-import debounce from 'lodash/debounce';
-import throttle from 'lodash/throttle';
+import { mountedRefType, debounceAndThrottleType } from '../../../types';
+import { decideReturnDebounceOrThrottleOrOriginal } from '../../../utils';
 
 type mixinMousePositionAtPageType = {
   onMouseMove?: (x: number, y: number) => void;
-  debounce?: {
-    wait?: number;
-    options?: Parameters<typeof debounce>[2];
-  };
-  throttle?: {
-    wait?: number;
-    options?: Parameters<typeof throttle>[2];
-  };
-};
-
-type mountedRefType = {
-  isMounted: boolean;
-};
+} & debounceAndThrottleType;
 
 const createInitialData = () => ({
   mixinMousePositionAtPage: {
@@ -38,21 +26,10 @@ const makeUpdateMousePagePosition = (
       }
     }
   }
-  if (options?.debounce) {
-    return debounce(
-      innerUpdateMousePagePosition,
-      options.debounce.wait,
-      options.debounce.options
-    );
-  }
-  if (options?.throttle) {
-    return throttle(
-      innerUpdateMousePagePosition,
-      options.throttle.wait,
-      options.throttle.options
-    );
-  }
-  return innerUpdateMousePagePosition;
+  return decideReturnDebounceOrThrottleOrOriginal(
+    innerUpdateMousePagePosition,
+    options
+  );
 };
 
 const mixinMousePositionAtPage = (options?: mixinMousePositionAtPageType) => {

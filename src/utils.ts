@@ -1,27 +1,18 @@
-import Vue, { VueConstructor, ComponentOptions } from "vue";
+import debounce from 'lodash/debounce';
+import throttle from 'lodash/throttle';
+import { debounceAndThrottleType } from './types';
 
-type VueMixin = VueConstructor | ComponentOptions<never>;
+const decideReturnDebounceOrThrottleOrOriginal = (
+  callback: (...args: any) => any,
+  options?: debounceAndThrottleType
+) => {
+  if (options?.debounce) {
+    return debounce(callback, options.debounce.wait, options.debounce.options);
+  }
+  if (options?.throttle) {
+    return throttle(callback, options.throttle.wait, options.throttle.options);
+  }
+  return callback;
+};
 
-type UnionToIntersection<U> = (U extends any
-? (k: U) => void
-: never) extends (k: infer I) => void
-  ? I
-  : never;
-
-type ExtractInstance<T> = T extends VueConstructor<infer V>
-  ? V
-  : T extends ComponentOptions<infer V>
-  ? V
-  : never;
-
-type MixedVueConstructor<Mixins extends VueMixin[]> = Mixins extends (infer T)[]
-  ? VueConstructor<UnionToIntersection<ExtractInstance<T>> & Vue>
-  : never;
-
-function mixins<Mixins extends VueMixin[]>(
-  ...mixins: Mixins
-): MixedVueConstructor<Mixins> {
-  return Vue.extend({ mixins: mixins as any }) as any;
-}
-
-export { mixins };
+export { decideReturnDebounceOrThrottleOrOriginal };

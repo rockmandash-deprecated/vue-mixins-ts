@@ -12,9 +12,7 @@
 
 <script lang="ts">
 // import Vue, { VueConstructor } from "vue";
-import { mixins } from '@/../../src/utils';
-import { mixinMousePositionAtPage } from '@/../../src/mixins/sensors/mixinMousePositionAtPage';
-import { mixinWindowSize } from '@/../../src/mixins/sensors/mixinWindowSize';
+import { mixins, mixinMousePositionAtPage, mixinWindowSize } from '@/../../src';
 
 // const test = mixins(mixinMousePositionAtPage);
 
@@ -22,6 +20,10 @@ const MyComponent = mixins(
   mixinMousePositionAtPage({
     debounce: {
       wait: 300,
+      options: {
+        leading: true,
+        trailing: false,
+      },
     },
     onMouseMove(x, y) {
       console.log(x, y);
