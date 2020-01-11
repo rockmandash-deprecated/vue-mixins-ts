@@ -20,10 +20,6 @@ const MyComponent = mixins(
   mixinMousePositionAtPage({
     debounce: {
       wait: 300,
-      options: {
-        leading: true,
-        trailing: false,
-      },
     },
     onMouseMove(x, y) {
       console.log(x, y);
