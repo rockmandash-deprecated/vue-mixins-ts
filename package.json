@@ -28,10 +28,14 @@
   "module": "dist/vue-mixins-ts.esm.js",
   "devDependencies": {
     "@types/jest": "^24.0.25",
+    "@types/lodash": "^4.14.149",
     "np": "^5.2.1",
     "tsdx": "^0.12.1",
     "tslib": "^1.10.0",
     "typescript": "^3.7.4",
     "vue": "^2.6.11"
+  },
+  "dependencies": {
+    "lodash": "^4.17.15"
   }
 }
