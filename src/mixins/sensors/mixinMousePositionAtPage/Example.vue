@@ -29,7 +29,7 @@ const customMixin = mixinMousePositionAtPage();
 //   },
 // });
 
-const MyComponent = mixins(
+export default mixins(
   customMixin
   // you can add multiple mixin provided by 'vue-mixins-ts' here like mixinWindowSize()
 ).extend({
@@ -40,6 +40,4 @@ const MyComponent = mixins(
     console.log(this.mixinMousePositionAtPage.y);
   },
 });
-
-export default MyComponent;
 </script>
