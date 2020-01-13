@@ -1,8 +1,8 @@
 <template>
   <div>
     <!-- you can access these property, if you forgot, you can go to component and simply type this.mixin... and you will get all available property -->
-    <div>x: {{ mixinWindowSize.width }}</div>
-    <div>y: {{ mixinWindowSize.height }}</div>
+    <div>width: {{ mixinWindowSize.width }}</div>
+    <div>height: {{ mixinWindowSize.height }}</div>
   </div>
 </template>
 
