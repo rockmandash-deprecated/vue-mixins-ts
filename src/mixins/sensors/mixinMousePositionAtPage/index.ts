@@ -1,17 +1,14 @@
 import Vue from 'vue';
 import { mountedRefType, debounceAndThrottleType } from '../../../types';
-import { decideReturnDebounceOrThrottleOrOriginal } from '../../../utils';
+import {
+  decideReturnDebounceOrThrottleOrOriginal,
+  on,
+  off,
+} from '../../../utils';
 
 type mixinMousePositionAtPageType = {
   onMouseMove?: (x: number, y: number) => void;
 } & debounceAndThrottleType;
-
-const createInitialData = () => ({
-  mixinMousePositionAtPage: {
-    x: 0,
-    y: 0,
-  },
-});
 
 const makeUpdateMousePagePosition = (
   mountedRef: mountedRefType,
@@ -38,14 +35,21 @@ const mixinMousePositionAtPage = (options?: mixinMousePositionAtPageType) => {
   };
 
   return Vue.extend({
-    data: createInitialData,
+    data() {
+      return {
+        mixinMousePositionAtPage: {
+          x: 0,
+          y: 0,
+        },
+      };
+    },
     mounted() {
       mountedRef.isMounted = true;
-      window.addEventListener('mousemove', this.__updateMousePagePosition);
+      on(window, 'mousemove', this.__updateMousePagePosition);
     },
     destroyed() {
       mountedRef.isMounted = false;
-      window.removeEventListener('mousemove', this.__updateMousePagePosition);
+      off(window, 'mousemove', this.__updateMousePagePosition);
     },
     methods: {
       __updateMousePagePosition: makeUpdateMousePagePosition(

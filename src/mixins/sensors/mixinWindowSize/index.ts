@@ -8,9 +8,9 @@ import {
 } from '../../../utils';
 
 type mixinWindowSizeType = {
-  onResize?: (width: number, height: number) => void;
   initialWidth?: number;
   initialHeight?: number;
+  onResize?: (width: number, height: number) => void;
 } & debounceAndThrottleType;
 
 const makeUpdateWindowSize = (
