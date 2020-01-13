@@ -1,8 +1,9 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link v-for="route in routes" :to="route.path" :key="route.path">
-        {{ route.name }}
+      <router-link v-for="route in routes" :key="route.path" :to="route.path">
+        {{ route.path }}
+        <br />
       </router-link>
     </div>
     <router-view />
@@ -10,19 +11,19 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { routes } from "./router";
+import Vue from 'vue';
+import { routes } from './router';
 
 export default Vue.extend({
   data() {
     return { routes };
-  }
+  },
 });
 </script>
 
 <style>
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
