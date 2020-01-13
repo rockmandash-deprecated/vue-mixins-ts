@@ -15,4 +15,10 @@ const decideReturnDebounceOrThrottleOrOriginal = (
   return callback;
 };
 
-export { decideReturnDebounceOrThrottleOrOriginal };
+const isClient = typeof window === 'object';
+
+const on = (obj: any, ...args: any[]) => obj.addEventListener(...args);
+
+const off = (obj: any, ...args: any[]) => obj.removeEventListener(...args);
+
+export { decideReturnDebounceOrThrottleOrOriginal, isClient, on, off };

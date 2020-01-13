@@ -12,6 +12,8 @@ import { mixins, mixinWindowSize } from '../../../';
 const customMixin = mixinWindowSize();
 // or
 // const customMixin = mixinWindowSize({
+//   initialWidth: 100,
+//   initialHeight: 200,
 //   onResize: (width, height) => {
 //     // a custom callback for you
 //     console.log(width, height);

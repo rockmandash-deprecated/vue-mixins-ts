@@ -1,17 +1,17 @@
 import Vue from 'vue';
 import { mountedRefType, debounceAndThrottleType } from '../../../types';
-import { decideReturnDebounceOrThrottleOrOriginal } from '../../../utils';
+import {
+  decideReturnDebounceOrThrottleOrOriginal,
+  isClient,
+  on,
+  off,
+} from '../../../utils';
 
 type mixinWindowSizeType = {
   onResize?: (width: number, height: number) => void;
+  initialWidth?: number;
+  initialHeight?: number;
 } & debounceAndThrottleType;
-
-const createInitialData = () => ({
-  mixinWindowSize: {
-    width: window.innerWidth,
-    height: window.innerHeight,
-  },
-});
 
 const makeUpdateWindowSize = (
   mountedRef: mountedRefType,
@@ -38,14 +38,25 @@ const mixinWindowSize = (options?: mixinWindowSizeType) => {
   };
 
   return Vue.extend({
-    data: createInitialData,
+    data() {
+      return {
+        mixinWindowSize: {
+          width: isClient
+            ? window.innerWidth
+            : options?.initialWidth || Infinity,
+          height: isClient
+            ? window.innerHeight
+            : options?.initialHeight || Infinity,
+        },
+      };
+    },
     mounted() {
       mountedRef.isMounted = true;
-      window.addEventListener('resize', this.__updateWindowSize);
+      on(window, 'resize', this.__updateWindowSize);
     },
     destroyed() {
       mountedRef.isMounted = false;
-      window.removeEventListener('resize', this.__updateWindowSize);
+      off(window, 'resize', this.__updateWindowSize);
     },
     methods: {
       __updateWindowSize: makeUpdateWindowSize(mountedRef, options),
