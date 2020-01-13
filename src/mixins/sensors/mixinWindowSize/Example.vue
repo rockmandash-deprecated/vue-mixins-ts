@@ -11,25 +11,25 @@ import { mixins, mixinWindowSize } from '../../../';
 
 const customMixin = mixinWindowSize();
 // or
-// const customMixin = mixinWindowSize({
-//   initialWidth: 100,
-//   initialHeight: 200,
-//   onResize: (width, height) => {
-//     // a custom callback for you
-//     console.log(width, height);
-//   },
-//   debounce: {
-//     wait: 300, // provide wait option (by lodash)
-//   },
-//   throttle: {
-//     wait: 300,
-//     options: {
-//       // or lodash throttle options
-//       leading: true,
-//       trailing: false,
-//     },
-//   },
-// });
+const customMixin2 = mixinWindowSize({
+  initialWidth: 100,
+  initialHeight: 200,
+  onResize: (width, height) => {
+    // a custom callback for you
+    console.log(width, height);
+  },
+  debounce: {
+    wait: 300, // provide wait option (by lodash)
+  },
+  throttle: {
+    wait: 300,
+    options: {
+      // or lodash throttle options
+      leading: true,
+      trailing: false,
+    },
+  },
+});
 
 export default mixins(
   customMixin

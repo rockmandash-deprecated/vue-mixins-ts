@@ -1,33 +1,36 @@
 <template>
   <div>
     <!-- you can access these property, if you forgot, you can go to component and simply type this.mixin... and you will get all available property -->
-    <div>x: {{ mixinMousePositionAtPage.x }}</div>
-    <div>y: {{ mixinMousePositionAtPage.y }}</div>
+    <div>isMatched: {{ mixinMedia.isMatched }}</div>
   </div>
 </template>
 
 <script lang="ts">
-import { mixins, mixinMousePositionAtPage } from '../../../';
+import { mixins, mixinMedia } from '../../../';
 
-const customMixin = mixinMousePositionAtPage();
+const customMixin = mixinMedia({
+  query: '(min-width: 480px)',
+});
 // or
-// const customMixin = mixinMousePositionAtPage({
-//   onMouseMove: (x, y) => {
-//     // a custom callback for you
-//     console.log(x, y);
-//   },
-//   debounce: {
-//     wait: 300, // provide wait option (by lodash)
-//   },
-//   throttle: {
-//     wait: 300,
-//     options: {
-//       // or lodash throttle options
-//       leading: true,
-//       trailing: false,
-//     },
-//   },
-// });
+const customMixin2 = mixinMedia({
+  query: '(min-width: 480px)',
+  defaultState: false,
+  onMatchMedia: isMatched => {
+    // a custom callback for you
+    console.log(isMatched);
+  },
+  debounce: {
+    wait: 300, // provide wait option (by lodash)
+  },
+  throttle: {
+    wait: 300,
+    options: {
+      // or lodash throttle options
+      leading: true,
+      trailing: false,
+    },
+  },
+});
 
 export default mixins(
   customMixin
@@ -36,8 +39,7 @@ export default mixins(
   // write your normal component here
   mounted() {
     // you can type this.mixin... and TypeScript will show all available mixin data property.
-    console.log(this.mixinMousePositionAtPage.x);
-    console.log(this.mixinMousePositionAtPage.y);
+    console.log(this.mixinMedia.isMatched);
   },
 });
 </script>

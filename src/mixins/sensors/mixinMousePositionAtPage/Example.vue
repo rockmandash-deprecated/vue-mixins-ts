@@ -11,23 +11,23 @@ import { mixins, mixinMousePositionAtPage } from '../../../';
 
 const customMixin = mixinMousePositionAtPage();
 // or
-// const customMixin = mixinMousePositionAtPage({
-//   onMouseMove: (x, y) => {
-//     // a custom callback for you
-//     console.log(x, y);
-//   },
-//   debounce: {
-//     wait: 300, // provide wait option (by lodash)
-//   },
-//   throttle: {
-//     wait: 300,
-//     options: {
-//       // or lodash throttle options
-//       leading: true,
-//       trailing: false,
-//     },
-//   },
-// });
+const customMixin2 = mixinMousePositionAtPage({
+  onMouseMove: (x, y) => {
+    // a custom callback for you
+    console.log(x, y);
+  },
+  debounce: {
+    wait: 300, // provide wait option (by lodash)
+  },
+  throttle: {
+    wait: 300,
+    options: {
+      // or lodash throttle options
+      leading: true,
+      trailing: false,
+    },
+  },
+});
 
 export default mixins(
   customMixin

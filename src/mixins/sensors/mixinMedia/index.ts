@@ -3,8 +3,6 @@ import { mountedRefType, debounceAndThrottleType } from '../../../types';
 import {
   decideReturnDebounceOrThrottleOrOriginal,
   isClient,
-  on,
-  off,
 } from '../../../utils';
 
 type mixinMediaType = {
@@ -15,47 +13,45 @@ type mixinMediaType = {
 
 const makeUpdateMedia = (
   mountedRef: mountedRefType,
-  options?: mixinMediaType
+  options?: mixinMediaType,
+  mql?: MediaQueryList
 ) => {
-  function innerUpdateMedia(this: any, event: MouseEvent) {
+  function innerUpdateMedia(this: any) {
     if (mountedRef.isMounted) {
-      this.mixinMedia.x = event.pageX;
-      this.mixinMedia.y = event.pageY;
-      if (options?.onMouseMove) {
-        options.onMouseMove(event.pageX, event.pageY);
+      this.mixinMedia.isMatched = mql!.matches;
+      if (options?.onMatchMedia) {
+        options.onMatchMedia(mql!.matches);
       }
     }
   }
   return decideReturnDebounceOrThrottleOrOriginal(innerUpdateMedia, options);
 };
-
+// support media name
 const mixinMedia = (options: mixinMediaType) => {
   const mountedRef = {
     isMounted: false,
   };
 
-  const mql = window.matchMedia(options.query);
+  const mql = isClient ? window.matchMedia(options.query) : undefined;
 
   return Vue.extend({
     data() {
       return {
         mixinMedia: {
-          isMatched: isClient
-            ? window.matchMedia(options.query).matches
-            : Boolean(options.defaultState),
+          isMatched: isClient ? mql!.matches : Boolean(options.defaultState),
         },
       };
     },
     mounted() {
       mountedRef.isMounted = true;
-      on(window, 'mousemove', this.__updateMedia);
+      mql!.addListener(this.__updateMedia);
     },
     destroyed() {
       mountedRef.isMounted = false;
-      off(window, 'mousemove', this.__updateMedia);
+      mql!.removeListener(this.__updateMedia);
     },
     methods: {
-      __updateMedia: makeUpdateMedia(mountedRef, options),
+      __updateMedia: makeUpdateMedia(mountedRef, options, mql),
     },
   });
 };
