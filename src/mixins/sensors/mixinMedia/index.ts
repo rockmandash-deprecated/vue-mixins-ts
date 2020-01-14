@@ -47,14 +47,18 @@ const mixinMedia = (options: mixinMediaType) => {
     },
     mounted() {
       mountedRef.isMounted = true;
-      mql!.addListener(this.__updateMedia);
+      mql!.addListener(this['__updateMedia_' + options.queryName]);
     },
     destroyed() {
       mountedRef.isMounted = false;
-      mql!.removeListener(this.__updateMedia);
+      mql!.removeListener(this['__updateMedia_' + options.queryName]);
     },
     methods: {
-      __updateMedia: makeUpdateMedia(mountedRef, options, mql),
+      ['__updateMedia_' + options.queryName]: makeUpdateMedia(
+        mountedRef,
+        options,
+        mql
+      ),
     },
   });
 };
