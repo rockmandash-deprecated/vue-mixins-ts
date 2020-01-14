@@ -8,6 +8,7 @@
 4. SSR, Nuxt.js Compatible
 
 ❌ namespace clashing -> fixed by prefixing mixin keyword ✅
+
 ❌ unclear property sources -> fixed by TypeScript ✅
 
 ## Usage
