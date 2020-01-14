@@ -21,7 +21,7 @@ const makeUpdateWindowSize = (
     if (mountedRef.isMounted) {
       this.mixinWindowSize.width = window.innerWidth;
       this.mixinWindowSize.height = window.innerHeight;
-      if (options && options.onResize) {
+      if (options?.onResize) {
         options.onResize(window.innerWidth, window.innerHeight);
       }
     }
