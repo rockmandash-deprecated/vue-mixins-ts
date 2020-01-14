@@ -1,0 +1,1 @@
+tracks dimensions of the browser window.

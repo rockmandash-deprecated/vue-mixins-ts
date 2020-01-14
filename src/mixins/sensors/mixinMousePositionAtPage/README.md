@@ -1,0 +1,1 @@
+re-render on mouse position changes at page.
