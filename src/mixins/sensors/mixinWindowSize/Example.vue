@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { mixins, mixinWindowSize } from '../../../';
+import { mixins, mixinWindowSize } from '../../../'; // replace the path with 'vue-mixins-ts';
 
 const customMixin = mixinWindowSize();
 // or

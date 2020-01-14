@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { mixins, mixinMedia } from '../../../';
+import { mixins, mixinMedia } from '../../../'; // replace the path with 'vue-mixins-ts';
 
 const customMixinForTablet = mixinMedia({
   query: '(min-width: 480px)',

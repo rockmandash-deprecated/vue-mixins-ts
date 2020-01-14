@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts">
-import { mixins, mixinPageLeave } from '../../../';
+import { mixins, mixinPageLeave } from '../../../'; // replace the path with 'vue-mixins-ts';
 
 const customMixin = mixinPageLeave();
 // or

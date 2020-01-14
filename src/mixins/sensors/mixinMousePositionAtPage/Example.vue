@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { mixins, mixinMousePositionAtPage } from '../../../';
+import { mixins, mixinMousePositionAtPage } from '../../../'; // replace the path with 'vue-mixins-ts';
 
 const customMixin = mixinMousePositionAtPage();
 // or
