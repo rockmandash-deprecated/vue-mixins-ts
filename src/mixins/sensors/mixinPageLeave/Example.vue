@@ -37,5 +37,13 @@ export default mixins(
     // you can type this.mixin... and TypeScript will show all available mixin data property.
     console.log(this.mixinPageLeave.count);
   },
+  watch: {
+    mixinPageLeave: {
+      handler(mixinPageLeave) {
+        console.log(mixinPageLeave.count);
+      },
+      deep: true,
+    },
+  },
 });
 </script>
