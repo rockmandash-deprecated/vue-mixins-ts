@@ -35,6 +35,8 @@ const mixinMedia = (options: mixinMediaType) => {
 
   const mql = isClient ? window.matchMedia(options.query) : undefined;
 
+  const updateMethodName = '__updateMedia_' + options.queryName;
+
   return Vue.extend({
     data() {
       return {
@@ -47,18 +49,14 @@ const mixinMedia = (options: mixinMediaType) => {
     },
     mounted() {
       mountedRef.isMounted = true;
-      mql!.addListener(this['__updateMedia_' + options.queryName]);
+      mql!.addListener(this[updateMethodName]);
     },
     destroyed() {
       mountedRef.isMounted = false;
-      mql!.removeListener(this['__updateMedia_' + options.queryName]);
+      mql!.removeListener(this[updateMethodName]);
     },
     methods: {
-      ['__updateMedia_' + options.queryName]: makeUpdateMedia(
-        mountedRef,
-        options,
-        mql
-      ),
+      [updateMethodName]: makeUpdateMedia(mountedRef, options, mql),
     },
   });
 };
