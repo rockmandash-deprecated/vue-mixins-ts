@@ -7,18 +7,19 @@ import {
 
 type mixinMediaType = {
   query: string;
+  queryName: string;
   defaultState?: boolean;
   onMatchMedia?: (isMatched: boolean) => void;
 } & debounceAndThrottleType;
 
 const makeUpdateMedia = (
   mountedRef: mountedRefType,
-  options?: mixinMediaType,
+  options: mixinMediaType,
   mql?: MediaQueryList
 ) => {
   function innerUpdateMedia(this: any) {
     if (mountedRef.isMounted) {
-      this.mixinMedia.isMatched = mql!.matches;
+      this.mixinMedia[options.queryName] = mql!.matches;
       if (options?.onMatchMedia) {
         options.onMatchMedia(mql!.matches);
       }
@@ -38,7 +39,9 @@ const mixinMedia = (options: mixinMediaType) => {
     data() {
       return {
         mixinMedia: {
-          isMatched: isClient ? mql!.matches : Boolean(options.defaultState),
+          [options.queryName]: isClient
+            ? mql!.matches
+            : Boolean(options.defaultState),
         },
       };
     },
